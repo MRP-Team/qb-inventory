@@ -886,6 +886,11 @@ RegisterNUICallback("CloseInventory", function(_, cb)
 end)
 
 RegisterNUICallback("UseItem", function(data, cb)
+    local itemData = data.item
+    print("---------------------qb-inventory----------------UseItem")
+    print(itemData.name)
+    print(itemData.slot)
+    print(json.encode(itemData))
     TriggerServerEvent("inventory:server:UseItem", data.inventory, data.item)
     cb('ok')
 end)

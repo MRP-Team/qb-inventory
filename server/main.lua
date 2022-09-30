@@ -150,14 +150,16 @@ exports("GetFirstSlotByItem", GetFirstSlotByItem)
 ---@param amount? number The amount of the item to add
 ---@param slot? number The slot to add the item to
 ---@param info? table Extra info to add onto the item to use whenever you get the item
+---@param label? string New label to add onto the item to use whenever you get the item
 ---@return boolean success Returns true if the item was added, false it the item couldn't be added
-local function AddItem(source, item, amount, slot, info)
+local function AddItem(source, item, amount, slot, info, label)
 	local Player = QBCore.Functions.GetPlayer(source)
 
 	if not Player then return false end
 
 	local totalWeight = GetTotalWeight(Player.PlayerData.items)
 	local itemInfo = QBCore.Shared.Items[item:lower()]
+	itemInfo['label'] = label or itemInfo['label']
 	if not itemInfo and not Player.Offline then
 		QBCore.Functions.Notify(source, "Item does not exist", 'error')
 		return false
@@ -211,6 +213,20 @@ local function AddItem(source, item, amount, slot, info)
 end
 
 exports("AddItem", AddItem)
+
+
+RegisterNetEvent("inventory:server:mrp-AddClothingBag", function(src_player, purchaseQuantity, purchaseName, skinData)
+	print("---------------")
+	print(purchaseQuantity)
+	info_skinData = json.encode(skinData)
+	print(info_skinData)
+	for i = 1,purchaseQuantity
+	do
+		AddItem(src_player, "clothingbag", 1, false, info_skinData, purchaseName)
+	end
+	QBCore.Functions.Notify(src_player, "Thank you for your purchase!", "success")
+
+end)
 
 ---Remove an item from the inventory of the player
 ---@param source number The source of the player
@@ -1472,6 +1488,15 @@ RegisterNetEvent('inventory:server:UseItem', function(inventory, item)
 	local itemInfo = QBCore.Shared.Items[itemData.name]
 	if itemData.type == "weapon" then
 		TriggerClientEvent("inventory:client:UseWeapon", src, itemData, itemData.info.quality and itemData.info.quality > 0)
+		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
+	elseif itemData.type == "clothing" then
+		-- TriggerClientEvent('qb-clothing:client:PutOnClothes', src, itemInfo, "use")
+		print("---------------------qb-inventory----------------UseItem")
+		print(itemData.name)
+		print(itemData.slot)
+		print(itemData.info)
+		print(json.encode(itemData))
+		UseItem(itemData.name, src, itemData)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
 	else
 		UseItem(itemData.name, src, itemData)
