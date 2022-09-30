@@ -217,10 +217,7 @@ exports("AddItem", AddItem)
 
 
 RegisterNetEvent("inventory:server:mrp-AddClothingBag", function(src_player, purchaseQuantity, purchaseName, skinData)
-	print("---------------")
-	print(purchaseQuantity)
 	info_skinData = json.encode(skinData)
-	print(info_skinData)
 	for i = 1,purchaseQuantity
 	do
 		AddItem(src_player, "clothingbag", 1, false, info_skinData, purchaseName)
