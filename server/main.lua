@@ -33,7 +33,7 @@ local function LoadInventory(source, citizenid)
 					name = itemInfo['name'],
 					amount = item.amount,
 					info = item.info or '',
-					label = itemInfo['label'],
+					label = item['label'] or itemInfo['label'],
 					description = itemInfo['description'] or '',
 					weight = itemInfo['weight'],
 					type = itemInfo['type'],
@@ -86,6 +86,7 @@ local function SaveInventory(source, offline)
                     info = item.info,
                     type = item.type,
                     slot = slot,
+					label = item.label,
                 }
             end
         end
@@ -1490,14 +1491,9 @@ RegisterNetEvent('inventory:server:UseItem', function(inventory, item)
 		TriggerClientEvent("inventory:client:UseWeapon", src, itemData, itemData.info.quality and itemData.info.quality > 0)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
 	elseif itemData.type == "clothing" then
-		-- TriggerClientEvent('qb-clothing:client:PutOnClothes', src, itemInfo, "use")
-		print("---------------------qb-inventory----------------UseItem")
-		print(itemData.name)
-		print(itemData.slot)
-		print(itemData.info)
-		print(json.encode(itemData))
+		TriggerEvent('qb-clothing:PutOnClothes', src, itemData.info)
 		UseItem(itemData.name, src, itemData)
-		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
+		TriggerClientEvent('inventory:client:ItemBox', src, itemData, "use")
 	else
 		UseItem(itemData.name, src, itemData)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
