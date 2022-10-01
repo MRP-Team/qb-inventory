@@ -1502,9 +1502,8 @@ RegisterNetEvent('inventory:server:UseItem', function(inventory, item)
 		TriggerClientEvent("inventory:client:UseWeapon", src, itemData, itemData.info.quality and itemData.info.quality > 0)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
 	elseif itemData.type == "clothing" then
-		TriggerEvent('qb-clothing:PutOnClothes', src, itemData.info)
 		UseItem(itemData.name, src, itemData)
-		TriggerClientEvent('inventory:client:ItemBox', src, itemData, "use")
+		TriggerClientEvent('qb-clothing:client:PutOnClothes', src, itemData)
 	else
 		UseItem(itemData.name, src, itemData)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
