@@ -1486,6 +1486,9 @@ RegisterNetEvent('inventory:server:UseItemSlot', function(slot)
 	if itemData.type == "weapon" then
 		TriggerClientEvent("inventory:client:UseWeapon", src, itemData, itemData.info.quality and itemData.info.quality > 0)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
+	elseif itemData.type == "clothing" then
+		UseItem(itemData.name, src, itemData)
+		TriggerClientEvent('qb-clothing:client:PutOnClothes', src, itemData)
 	elseif itemData.useable then
 		UseItem(itemData.name, src, itemData)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
@@ -1508,6 +1511,11 @@ RegisterNetEvent('inventory:server:UseItem', function(inventory, item)
 		UseItem(itemData.name, src, itemData)
 		TriggerClientEvent('inventory:client:ItemBox', src, itemInfo, "use")
 	end
+end)
+
+RegisterNetEvent('inventory:server:PlayerRemoveItem', function(item, amount, slot)
+	local src = source
+	RemoveItem(src, item, amount, slot)
 end)
 
 RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, toInventory, fromSlot, toSlot, fromAmount, toAmount)
