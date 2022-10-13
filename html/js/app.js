@@ -441,6 +441,16 @@ function FormatItemInfo(itemData) {
                 itemData.info.citizenid +
                 "</span></p>"
             );
+        } else if (itemData.name == "spraycan") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><span>"+ itemData.description +"</span></p>"
+            );
+        } else if (itemData.name == "rag") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><span>"+ itemData.description +"</span></p>"
+            );
         } else if (itemData.name == "harness") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
