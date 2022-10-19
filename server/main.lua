@@ -1438,6 +1438,13 @@ RegisterNetEvent('inventory:server:SaveInventory', function(type, id)
 			Gloveboxes[id].isOpen = false
 		end
 	elseif type == "stash" then
+		local indexstart, indexend = string.find(id, 'Backpack_')
+		if indexstart and indexend then
+			TriggerEvent('keep-backpack:server:saveBackpack', source, id, Stashes[id].items, function(close)
+				Stashes[id].isOpen = close
+			end)
+			return
+		end
 		SaveStashItems(id, Stashes[id].items)
 	elseif type == "drop" then
 		if Drops[id] then
