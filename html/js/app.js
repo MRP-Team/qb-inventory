@@ -417,6 +417,21 @@ function FormatItemInfo(itemData) {
                 itemData.info.type +
                 "</span></p>"
             );
+        } else if (itemData.name == "redwoodcigs") { // Cigarette Pack
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p>" + itemData.info.uses + " cigarettes left.</p>"
+            );
+        } else if (itemData.name == "cardiaquecigs") { // Cigarette Pack
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p>" + itemData.info.uses + " cigarettes left.</p>"
+            );
+        } else if (itemData.name == "yukoncigs") { // Cigarette Pack
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p>" + itemData.info.uses + " cigarettes left.</p>"
+            );
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
