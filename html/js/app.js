@@ -1625,7 +1625,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
             );
         } else {
             if (fromData.amount == $toAmount) {
-                if (toData && toData.unique){
+                if (toData && toData.unique){            
                     InventoryError($fromInv, $fromSlot);
                     return;
                 }
