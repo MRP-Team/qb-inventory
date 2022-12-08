@@ -270,6 +270,10 @@ local function RemoveItem(source, item, amount, slot)
 				TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'RemoveItem', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** lost item: [slot:' .. _slot .. '], itemname: ' .. item .. ', removed amount: ' .. amount .. ', item removed')
 
 				return true
+			elseif Player.PlayerData.items[_slot].amount < amountToRemove then
+				amountToRemove = amountToRemove - Player.PlayerData.items[_slot].amount
+				Player.PlayerData.items[_slot] = nil
+				if Player.Offline then return true end
 			end
 		end
 	end
