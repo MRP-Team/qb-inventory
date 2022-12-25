@@ -505,8 +505,9 @@ end
 ---@param plate string The plate to check
 ---@return boolean owned
 local function IsVehicleOwned(plate)
-    local result = MySQL.scalar.await('SELECT 1 from player_vehicles WHERE plate = ?', {plate})
-    return result
+	local result = MySQL.scalar.await('SELECT 1 from player_vehicles WHERE plate = ?', { plate })
+	local result2 = MySQL.scalar.await('SELECT 1 from keep_garage WHERE plate = ?', { plate })
+	return result or result2
 end
 
 ---Setup the shop items
