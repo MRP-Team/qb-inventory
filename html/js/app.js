@@ -483,6 +483,12 @@ function FormatItemInfo(itemData) {
                 itemData.info.citizenid +
                 "</span></p>"
             );
+        } else if (itemData.name == "blueprint_document") { // Blueprint for crafting
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><span>"+ itemData.description +"</span></p>" +
+                "<p><strong>Item:</strong> " + itemData.info.item_settings.label + "</p>"
+            );
         } else if (itemData.name == "spraycan") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
