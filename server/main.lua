@@ -2356,7 +2356,13 @@ QBCore.Commands.Add("resetinv", "Reset Inventory (Admin Only)", {{name="type", h
 end, "admin")
 
 QBCore.Commands.Add("rob", "Rob Player", {}, false, function(source, _)
-	TriggerClientEvent("police:client:RobPlayer", source)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.PlayerData.metadata["isdead"] or Player.PlayerData.metadata["inlaststand"] then
+			QBCore.Functions.Notify(src, "You CAN NOT rob while you down!", "error")
+	else
+			TriggerClientEvent("police:client:RobPlayer", src)
+	end
 end)
 
 QBCore.Commands.Add("giveitem", "Give An Item (Admin Only)", {{name="id", help="Player ID"},{name="item", help="Name of the item (not a label)"}, {name="amount", help="Amount of items"}}, false, function(source, args)
